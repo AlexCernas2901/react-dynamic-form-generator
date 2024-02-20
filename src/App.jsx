@@ -1,10 +1,13 @@
-import { DynamicForm } from './components/DynamicForm.jsx'
-import formData from './form.json'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { DynamicForm } from './pages/DynamicForm.jsx'
 
-export function App () {
+export function App() {
   return (
-    <div>
-      <DynamicForm json={formData} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<DynamicForm />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
