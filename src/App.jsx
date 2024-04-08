@@ -34,6 +34,22 @@ function App() {
   }
 
   const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        http://localhost:3000/forms/delete-form/${id},
+        {
+          method: 'DELETE'
+        }
+      )
+      if (response.ok) {
+        console.log('Formulario eliminado con éxito')
+        setForms(forms.filter((form) => form._id !== id))
+      } else {
+        console.error('Error al eliminar el formulario')
+      }
+    } catch (error) {
+      console.error('Error al eliminar el formulario:', error)
+    }
   }
 
   return (
