@@ -7,6 +7,23 @@ function App() {
   const [formData, setFormData] = useState({})
   const [forms, setForms] = useState([])
 
+  useEffect(() => {
+    fetch('http://localhost:3000/forms/get-forms')
+      .then((response) => response.json())
+      .then((data) => setForms(data.forms))
+      .catch((error) => console.error('Error:', error))
+  }, [])
+
+  useEffect(() => {
+    const fields = jsonForm?.data?.map((data) => data.section) ?? []
+    setFormFields(fields)
+  }, [])
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setFormData({ ...formData, [name]: value })
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
