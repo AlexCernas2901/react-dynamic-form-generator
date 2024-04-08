@@ -53,7 +53,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        http://localhost:3000/forms/delete-form/${id},
+        `http://localhost:3000/forms/delete-form/${id}`,
         {
           method: 'DELETE'
         }
