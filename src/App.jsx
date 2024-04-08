@@ -1,5 +1,5 @@
 import './App.css'
-import jsonForm from './../jsonForm.json'
+import jsonForm from './form.json'
 import { useEffect, useState } from 'react'
 
 function App() {
