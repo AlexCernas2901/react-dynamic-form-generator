@@ -8,6 +8,29 @@ function App() {
   const [forms, setForms] = useState([])
 
   const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const response = await fetch('http://localhost:3000/forms/create-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: formData })
+      })
+      if (response.ok) {
+        console.log('Formulario enviado con éxito')
+        setFormData({})
+        // Fetch the forms again to include the new form
+        fetch('http://localhost:3000/forms/get-forms')
+          .then((response) => response.json())
+          .then((data) => setForms(data.forms))
+          .catch((error) => console.error('Error:', error))
+      } else {
+        console.error('Error al enviar el formulario')
+      }
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error)
+    }
   }
 
   const handleDelete = async (id) => {
