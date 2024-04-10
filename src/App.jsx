@@ -1,4 +1,4 @@
-import './App.css'
+import './app.css'
 import jsonForm from './form.json'
 import { useEffect, useState } from 'react'
 
@@ -7,8 +7,10 @@ function App() {
   const [formData, setFormData] = useState({})
   const [forms, setForms] = useState([])
 
+  const urlApi = 'https://server-dinamicform-dev-anmk.1.us-1.fl0.io/form'
+
   useEffect(() => {
-    fetch('http://localhost:3000/forms/get-forms')
+    fetch(`${urlApi}/get-forms`)
       .then((response) => response.json())
       .then((data) => setForms(data.forms))
       .catch((error) => console.error('Error:', error))
@@ -27,7 +29,7 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const response = await fetch('http://localhost:3000/forms/create-form', {
+      const response = await fetch(`${urlApi}/create-form`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -38,7 +40,7 @@ function App() {
         console.log('Formulario enviado con éxito')
         setFormData({})
         // Fetch the forms again to include the new form
-        fetch('http://localhost:3000/forms/get-forms')
+        fetch(`${urlApi}/get-forms`)
           .then((response) => response.json())
           .then((data) => setForms(data.forms))
           .catch((error) => console.error('Error:', error))
@@ -52,12 +54,9 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/forms/delete-form/${id}`,
-        {
-          method: 'DELETE'
-        }
-      )
+      const response = await fetch(`${urlApi}/delete-form/${id}`, {
+        method: 'DELETE'
+      })
       if (response.ok) {
         console.log('Formulario eliminado con éxito')
         setForms(forms.filter((form) => form._id !== id))
